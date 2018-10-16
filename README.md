@@ -1,4 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/hugocarreira/go-decent-copy?status.svg)](https://godoc.org/github.com/hugocarreira/go-decent-copy) [![Build Status](https://travis-ci.org/hugocarreira/go-decent-copy.svg?branch=master)](https://travis-ci.org/hugocarreira/go-decent-copy)
+[![GoDoc](https://godoc.org/github.com/hugocarreira/go-decent-copy?status.svg)](https://godoc.org/github.com/hugocarreira/go-decent-copy) [![Build Status](https://travis-ci.org/hugocarreira/go-decent-copy.svg?branch=master)](https://travis-ci.org/hugocarreira/go-decent-copy) [![Go Report Card](https://goreportcard.com/badge/github.com/hugocarreira/go-decent-copy)](https://goreportcard.com/report/github.com/hugocarreira/go-decent-copy)
 
 # Go-Decent-Copy
 
