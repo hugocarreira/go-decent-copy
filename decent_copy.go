@@ -1,4 +1,4 @@
-// Package to copy files in simple form
+// Package decentcopy copy files in simple form
 package decentcopy
 
 import (
