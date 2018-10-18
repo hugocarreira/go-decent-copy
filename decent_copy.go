@@ -1,25 +1,3 @@
-/*
-
-decentcopy provides a copy files for humans
-
-Usage
-
-	package main
-
-	import "github.com/hugocarreira/go-decent-copy"
-
-	func main() {
-		execPath, _ := os.Getwd()
-
-		fileOrigin := "/testCopy.txt"
-		fileDestiny := fmt.Sprintf(execPath + "/folder/" + fileOrigin)
-		err := Copy(fileOrigin, fileDestiny)
-		if err != nil {
-			fmt.Printf("Error in copy file : %#v ", err.Error())
-		}
-	}
-
-*/
 // Package to copy files in simple form
 package decentcopy
 
@@ -40,5 +18,8 @@ func Copy(filepathOrigin, filepathDestiny string) error {
 
 	err = destFile.Sync()
 
-	return err
+	if err != nil {
+		return err
+	}
+	return nil
 }
