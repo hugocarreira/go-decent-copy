@@ -16,7 +16,7 @@ func Copy(filepathOrigin, filepathDestiny string) error {
 	destFile, _ := os.Create(filepathDestiny)
 	defer destFile.Close()
 
-	_, err = io.Copy(destFile, srcFile)
+	io.Copy(destFile, srcFile)
 
 	err = destFile.Sync()
 
