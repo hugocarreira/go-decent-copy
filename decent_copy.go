@@ -8,18 +8,17 @@ import (
 
 // Copy use to copy files
 func Copy(filepathOrigin, filepathDestiny string) error {
-	srcFile, err := os.Open(filepathOrigin)
+	var err error
+
+	srcFile, _ := os.Open(filepathOrigin)
 	defer srcFile.Close()
 
-	destFile, err := os.Create(filepathDestiny)
+	destFile, _ := os.Create(filepathDestiny)
 	defer destFile.Close()
 
 	_, err = io.Copy(destFile, srcFile)
 
 	err = destFile.Sync()
 
-	if err != nil {
-		return err
-	}
-	return nil
+	return err
 }
