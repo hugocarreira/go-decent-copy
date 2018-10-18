@@ -28,30 +28,17 @@ import (
 	"os"
 )
 
+// Copy use to copy files
 func Copy(filepathOrigin, filepathDestiny string) error {
-	execPath, _ := os.Getwd()
-
-	srcFile, err := os.Open(execPath + filepathOrigin)
-	if err != nil {
-		return err
-	}
+	srcFile, err := os.Open(filepathOrigin)
 	defer srcFile.Close()
 
 	destFile, err := os.Create(filepathDestiny)
-	if err != nil {
-		return err
-	}
 	defer destFile.Close()
 
 	_, err = io.Copy(destFile, srcFile)
-	if err != nil {
-		return err
-	}
 
 	err = destFile.Sync()
-	if err != nil {
-		return err
-	}
 
-	return nil
+	return err
 }
