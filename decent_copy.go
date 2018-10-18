@@ -20,7 +20,7 @@ Usage
 	}
 
 */
-
+// Package to copy files in simple form
 package decentcopy
 
 import (
