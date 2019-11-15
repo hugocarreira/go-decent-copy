@@ -8,6 +8,11 @@ import (
 
 // Copy use to copy files
 func Copy(filepathOrigin, filepathDestiny string) error {
+	srcInfo, err := os.Stat(filepathOrigin)
+	if err != nil {
+		return err
+	}
+
 	srcFile, _ := os.Open(filepathOrigin)
 	defer srcFile.Close()
 
@@ -16,7 +21,9 @@ func Copy(filepathOrigin, filepathDestiny string) error {
 
 	io.Copy(destFile, srcFile)
 
-	err := destFile.Sync()
+	if err := os.Chmod(filepathDestiny, srcInfo.Mode()); err != nil {
+		return err
+	}
 
-	return err
+	return destFile.Sync()
 }
