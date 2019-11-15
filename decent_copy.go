@@ -21,9 +21,7 @@ func Copy(filepathOrigin, filepathDestiny string) error {
 
 	io.Copy(destFile, srcFile)
 
-	if err := os.Chmod(filepathDestiny, srcInfo.Mode()); err != nil {
-		return err
-	}
+	_ = os.Chmod(filepathDestiny, srcInfo.Mode())
 
 	return destFile.Sync()
 }
