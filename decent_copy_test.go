@@ -44,14 +44,3 @@ func TestOriginDoesNotExist(t *testing.T) {
 		t.Fatalf("Should have returned an error because %v does not exist", fileOrigin)
 	}
 }
-
-func TestPermissionsUnchangable(t *testing.T) {
-	execPath, _ := os.Getwd()
-
-	fileOrigin := filepath.Join(execPath, "testHammertime.sh")
-	fileDestiny := filepath.Join(execPath, "maybeRun.sh")
-
-	if err := Copy(fileOrigin, fileDestiny); err == nil {
-		t.Fatalf("Should have returned an error because %v does not exist", fileOrigin)
-	}
-}
