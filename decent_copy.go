@@ -19,7 +19,9 @@ func Copy(filepathOrigin, filepathDestiny string) error {
 	destFile, _ := os.Create(filepathDestiny)
 	defer destFile.Close()
 
-	io.Copy(destFile, srcFile)
+	if _, err := io.Copy(destFile, srcFile); err != nil {
+		return err
+	}
 
 	if err := os.Chmod(filepathDestiny, srcInfo.Mode()); err != nil {
 		return err
