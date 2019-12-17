@@ -76,7 +76,7 @@ func TestDestFileExistsWithPermissionDenied(t *testing.T) {
 	execPath, _ := os.Getwd()
 
 	fileOrigin := filepath.Join(execPath, "testExecutable.sh")
-	fileDestiny := filepath.Join("wrong$path")
+	fileDestiny := filepath.Join("/dev/null/wrong-path")
 
 	if err := Copy(fileOrigin, fileDestiny); err == nil {
 		t.Fatalf("Should have returned an error because %v does not exist", fileDestiny)
