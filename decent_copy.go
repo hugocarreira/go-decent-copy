@@ -6,6 +6,10 @@ import (
 	"os"
 )
 
+// ExecOnErrorWhileDefer is executed when the file.Close() function returns an
+// error while closing the source or destination files.
+var ExecOnErrorWhileDefer func(error)
+
 // Copy use to copy files
 func Copy(filepathOrigin, filepathDestiny string) error {
 	srcInfo, err := os.Stat(filepathOrigin)
@@ -13,11 +17,27 @@ func Copy(filepathOrigin, filepathDestiny string) error {
 		return err
 	}
 
-	srcFile, _ := os.Open(filepathOrigin)
-	defer srcFile.Close()
+	srcFile, err := os.Open(filepathOrigin)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		err := srcFile.Close()
+		if ExecOnErrorWhileDefer != nil {
+			ExecOnErrorWhileDefer(err)
+		}
+	}()
 
-	destFile, _ := os.Create(filepathDestiny)
-	defer destFile.Close()
+	destFile, err := os.Create(filepathDestiny)
+	if err != nil {
+		return err
+	}
+	defer func() {
+		err := destFile.Close()
+		if ExecOnErrorWhileDefer != nil {
+			ExecOnErrorWhileDefer(err)
+		}
+	}()
 
 	if _, err := io.Copy(destFile, srcFile); err != nil {
 		return err
