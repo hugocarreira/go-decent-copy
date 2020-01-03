@@ -44,3 +44,41 @@ func TestOriginDoesNotExist(t *testing.T) {
 		t.Fatalf("Should have returned an error because %v does not exist", fileOrigin)
 	}
 }
+
+func TestSourceFileExistsWithPermissionDenied(t *testing.T) {
+	execPath, err := os.Getwd()
+	if err != nil {
+		t.Fatalf("Error while getting the working directory %v", err.Error())
+	}
+
+	fileOrigin := filepath.Join(execPath, "testExecutable.sh")
+
+	err = os.Chmod(fileOrigin, 0000)
+	if err != nil {
+		t.Fatalf("Error while changing the permission to 0000: %v", err.Error())
+	}
+
+	defer func() {
+		err = os.Chmod(fileOrigin, 0775)
+		if err != nil {
+			t.Fatalf("Error while changing the permission to 0775: %v", err.Error())
+		}
+	}()
+
+	fileDestiny := filepath.Join(execPath, "neverThere.txt")
+
+	if err := Copy(fileOrigin, fileDestiny); err == nil {
+		t.Fatalf("Should have returned an error because the user cannot open the file")
+	}
+}
+
+func TestDestFileExistsWithPermissionDenied(t *testing.T) {
+	execPath, _ := os.Getwd()
+
+	fileOrigin := filepath.Join(execPath, "testExecutable.sh")
+	fileDestiny := filepath.Join("/dev/null/wrong-path")
+
+	if err := Copy(fileOrigin, fileDestiny); err == nil {
+		t.Fatalf("Should have returned an error because %v does not exist", fileDestiny)
+	}
+}
